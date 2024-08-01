@@ -1,0 +1,24 @@
+class Solution(object):
+    def countSeniors(self, details):
+        #initilizing a variable to track the count of the citizens with age greater than 60
+        count = 0
+        #looping through 1D array
+        for i in details:
+            #fetching the substring which is the age of the citizen and converting it into int, then checking if the age is greater than 60 or not
+            if int(i[11:13]) > 60:
+                count +=1
+        #returning no of citizens with age greater than 60. 
+        return count 
+
+# Example usage
+
+# Create an instance of the Solution class
+solution = Solution()
+
+# Example input: list of citizen details
+# Assume each detail string has at least 13 characters and the age is always in positions 11 and 12
+details = ["7868190130M7522","5303914400F9211","9273338290F4010"]
+
+# Call the countSeniors method and print the result
+result = solution.countSeniors(details)
+print(result)  # Expected output: 2 (75 and 92 are both greater than 60)
