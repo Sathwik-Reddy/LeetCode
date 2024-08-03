@@ -1,0 +1,30 @@
+class Solution(object):
+    def rotate(self, nums, k):
+        # Handle cases where k is larger than the length of nums
+        k = k % n
+        if k >0:
+          # Extract the last k elements
+          nums1 = nums[-k:]
+          # Modify the original list to contain elements except the last k elements
+          nums[:] = nums[:-k]
+          # Concatenate nums1 to the front of nums
+          nums[:] = nums1 + nums
+
+# Example usage:
+sol = Solution()
+nums = [1, 2, 3, 4, 5, 6, 7]
+k = 3
+
+# Print the list before rotation
+print("Before rotation:", nums)
+
+# Rotate the list
+sol.rotate(nums, k)
+
+
+# Print the list after rotation
+print("After rotation:", nums)
+
+o#utput: 
+#Before rotation: [1, 2, 3, 4, 5, 6, 7]
+#After rotation: [5, 6, 7, 1, 2, 3, 4]
