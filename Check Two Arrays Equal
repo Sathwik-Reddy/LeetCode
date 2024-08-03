@@ -1,0 +1,14 @@
+class Solution(object):
+    def canBeEqual(self, target, arr):
+        # Compare the sorted lists
+        return sorted(target) == sorted(arr)
+
+# Example usage
+sol = Solution()
+
+# Example 1
+target1 = [1, 2, 3, 4]
+arr1 = [4, 3, 2, 1]
+print("Example 1:")
+print("Can be equal:", sol.canBeEqual(target1, arr1))  # Expected: True
+
