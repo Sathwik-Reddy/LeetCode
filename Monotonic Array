@@ -1,0 +1,21 @@
+class Solution(object):
+    def isMonotonic(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        if len(nums) < 2:
+            return True
+        else:
+            for i in range(len(nums)):
+                if i == len(nums)-1:
+                    return True
+                elif nums[i] > nums[i+1]:
+                    return all(nums[i]>=nums[i+1] for i in range(i+1,len(nums)-1))
+                elif nums[i] < nums[i+1]:
+                    return all(nums[i]<=nums[i+1] for i in range(i+1,len(nums)-1))
+
+sol = Solution()
+print(sol.isMonotonic([1,2,3,4]))
+
+#output: True
