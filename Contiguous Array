@@ -1,0 +1,35 @@
+class Solution(object):
+    def findMaxLength(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        # Transform 0s to -1s for easier computation
+        nums[:] = [-1 if x == 0 else x for x in nums]
+        cur_sum = 0
+        cur_dict = {0: -1}  # Initialize with {0: -1} to handle the case where the subarray starts from index 0
+        max_len = 0
+
+        for i in range(len(nums)):
+            # Update the current prefix sum
+            cur_sum += nums[i]
+            
+            if cur_sum == 0:
+                # If the current prefix sum is 0, the subarray from index 0 to i has equal number of 0s and 1s
+                max_len = i + 1
+            elif cur_sum in cur_dict:
+                # If the prefix sum has been seen before, calculate the length of the subarray
+                max_len = max(max_len, i - cur_dict[cur_sum])
+            else:
+                # Store the first occurrence of this prefix sum
+                cur_dict[cur_sum] = i
+
+        return max_len
+
+# Example usage
+solution = Solution()
+
+# Example 1
+nums1 = [1, 0, 0, 1]
+print(solution.findMaxLength(nums1))
+# Expected Output: 4
