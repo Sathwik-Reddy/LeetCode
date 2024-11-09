@@ -1,0 +1,59 @@
+class TreeNode():
+    def __init__(self,data):
+        self.data = data
+        self.children = []
+        self.parent = None
+    def add_child(self,child):
+        child.parent = self
+        self.children.append(child)
+    
+    def getLevel(self):
+        level = 0
+        p = self.parent
+        while p:
+            level += 1
+            p = p.parent 
+        return level
+            
+        
+    def print_tree(self,view):
+        spaces = ' ' * self.getLevel() *3
+        prefix = '|__' if self.parent else ''
+        if view == 'Names':
+            print(spaces + prefix+  self.data[0])
+        elif view == 'Position':
+            print(spaces + prefix+  self.data[1])
+        elif view == 'Both':
+            print(spaces + prefix+  self.data[0] + '('+self.data[1]+')')
+        if self.children:
+            for i in self.children:
+                i.print_tree(view)
+                
+def organization_level():              
+    CEO = TreeNode(['Nilupul','CEO'])
+    CTO = TreeNode(['Chinmay','CTO'])
+    Infrastructure_Head = TreeNode(['Vishwa','Infrastructure Head'])
+    Cloud_Manager = TreeNode(['Dhaval','Cloud Manager'])
+    App_Manager = TreeNode(['Abhijith','App Manager'])
+    Application_Head = TreeNode(['Aamir','Application Head'])
+    HR_Head = TreeNode(['Gels','HR Head'])
+    Recruitment_Manager = TreeNode(['Peter','Recruitment Manager'])
+    Policy_Manager = TreeNode(['Waqas','Policy Manager'])
+    
+    
+    CEO.add_child(CTO)
+    CEO.add_child(HR_Head)
+    CTO.add_child(Infrastructure_Head)
+    CTO.add_child(Application_Head)
+    Infrastructure_Head.add_child(Cloud_Manager)
+    Infrastructure_Head.add_child(App_Manager)
+    HR_Head.add_child(Recruitment_Manager)
+    HR_Head.add_child(Policy_Manager)
+    
+    return CEO
+
+org_level = organization_level()
+org_level.print_tree('Names')
+org_level.print_tree('Position')
+org_level.print_tree('Both')
+                
