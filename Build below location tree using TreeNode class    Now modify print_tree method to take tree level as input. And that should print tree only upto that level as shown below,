@@ -1,0 +1,62 @@
+class TreeNode():
+    def __init__(self,data):
+        self.data = data
+        self.children = []
+        self.parent = None
+    def add_child(self,child):
+        child.parent = self
+        self.children.append(child)
+    
+    def getLevel(self):
+        level = 0
+        p = self.parent
+        while p:
+            level += 1
+            p = p.parent 
+        return level
+
+    def print_tree(self,stage):
+        spaces = ' ' * self.getLevel() *5
+        prefix = '|__' if self.parent else ''
+        if self.getLevel() > stage:
+            return
+        else:
+            print(spaces + prefix+  self.data)
+            if self.children:
+                for i in self.children:
+                    i.print_tree(stage)
+        
+
+def build_location_tree():
+    Gujarath = TreeNode('Gujarath')
+    Gujarath.add_child(TreeNode('Ahmedabad'))
+    Gujarath.add_child(TreeNode('Baroda'))
+    Karnataka = TreeNode('Karnataka')
+    Karnataka.add_child(TreeNode('Banglore'))
+    Karnataka.add_child(TreeNode('Mysore'))
+    
+    India = TreeNode('India')
+    India.add_child(Karnataka)
+    India.add_child(Gujarath)
+    
+    New_Jersey = TreeNode('New Jersey')
+    New_Jersey.add_child(TreeNode('Princeton'))
+    New_Jersey.add_child(TreeNode('Trenton'))
+    
+    California = TreeNode('California')
+    California.add_child(TreeNode('San Fransisco'))
+    California.add_child(TreeNode('Mountain View'))
+    California.add_child(TreeNode('Palo Alto'))
+    
+    USA = TreeNode('USA')
+    USA.add_child(New_Jersey)
+    USA.add_child(California)
+    
+    Global = TreeNode('Global')
+    Global.add_child(India)
+    Global.add_child(USA)
+    
+    return Global
+    
+location = build_location_tree()
+location.print_tree(3)
