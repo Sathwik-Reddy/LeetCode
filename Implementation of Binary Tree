@@ -1,0 +1,56 @@
+class BinarySearchNode():
+    def __init__(self,data):
+        self.data = data
+        self.right = None
+        self.left = None
+    def add_child(self,data):
+        if data == self.data:
+            return 
+        if data < self.data:
+            if self.left == None:
+                self.left = BinarySearchNode(data)
+            else:
+                self.left.add_child(data)
+        else:
+            if self.right == None:
+                self.right = BinarySearchNode(data)
+            else:
+                self.right.add_child(data)
+    def in_order_traversal(self):
+        elements = []
+        if self.left:
+            elements += self.left.in_order_traversal()
+        elements.append(self.data)
+        
+        if self.right:
+            elements += self.right.in_order_traversal()
+        return elements
+
+    def search(self,value):
+        if self.data == value:
+            return True
+        if value < self.data:
+            if self.left:
+                return self.left.search(value)
+                
+            else:
+                return False
+        else:
+            if self.right:
+                return self.right.search(value)
+            else:
+                return False
+
+    
+def showResult(numbers):
+    root = BinarySearchNode(numbers[0])
+    
+    for i in range(len(numbers)):
+        root.add_child(numbers[i])
+    return root
+        
+if __name__ == '__main__':
+    elements = [4,1,6,24,63,12,56,23,1,9]
+    numberTree = showResult(elements)
+    print(numberTree.in_order_traversal())
+    print(numberTree.search(9))
