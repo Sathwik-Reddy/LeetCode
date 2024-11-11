@@ -1,0 +1,78 @@
+class Routes():
+    def __init__(self,routes):
+        self.routes = routes
+        self.routes_dict = {}
+        for start, end in routes:
+            if start in self.routes_dict:
+                self.routes_dict[start].append(end)
+            else:
+                self.routes_dict[start] = [end]
+        
+    def get_paths(self,start,end,path=[]):
+        path = path + [start]
+        paths = []
+        if start == end:
+            return path
+        elif start not in self.routes_dict:
+            return []
+        else:
+            for node in self.routes_dict[start]:
+                new_path = self.get_paths(node,end,path)
+                paths.append(new_path)             
+        return paths
+    
+    def shortest_path(self,start,end,path=[]):
+        path = path + [start]
+        short_path = None
+        
+        if start == end:
+            return path
+        elif start not in self.routes_dict:
+            return []
+        else:
+            for node in self.routes_dict[start]:
+                sp = self.shortest_path(node,end,path)
+                if short_path is None or (len(path) < len(short_path)):
+                    short_path = sp
+                    
+        return short_path
+
+                        
+        
+    
+if __name__ == '__main__':
+
+    domestic_flights = [
+        ("Mumbai","Pune"),
+        ("Mumbai", "Surat"),
+        ("Surat", "Bangaluru"),
+        ("Pune","Hyderabad"),
+        ("Pune","Mysuru"),
+        ("Hyderabad","Bangaluru"),
+        ("Hyderabad", "Chennai"),
+        ("Mysuru", "Bangaluru"),
+        ("Chennai", "Bangaluru")
+    ]
+
+    international_flights = [
+        ("Mumbai", "Paris"),
+        ("Mumbai", "Dubai"),
+        ("Paris", "Dubai"),
+        ("Paris", "New York"),
+        ("Dubai", "New York"),
+        ("New York", "Toronto"),
+    ]
+
+    route_graph = Routes(domestic_flights)
+
+    start = "Mumbai"
+    end = "New York"
+
+    print(f"All paths between: {start} and {end}: ",route_graph.get_paths(start,end))
+    print(f"Shortest path between {start} and {end}: ", route_graph.shortest_path(start,end))
+
+    start = "Pune"
+    end = "Bangaluru"
+
+    print(f"All paths between: {start} and {end}: ",route_graph.get_paths(start,end))
+    print(f"Shortest path between {start} and {end}: ", route_graph.shortest_path(start,end))
